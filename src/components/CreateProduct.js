@@ -62,7 +62,6 @@ export default function CreateProduct (){
                 method: "POST",
                 body:formData,
                 headers: {
-                  //"Content-type": "application/json; charset=UTF-8",
                   Authorization: token,
                 },
               })
@@ -70,9 +69,12 @@ export default function CreateProduct (){
                 if(data.message !== "Product added"){
                     navigate('/')
                 }
-            if(data.error){
+                if(data.status===400){
+                    setError(data.err)
+                }
+                if(data.error){
                 setError(data.error);
-            }
+                }
         setName("");
         setPrice("");
         setFiles("");

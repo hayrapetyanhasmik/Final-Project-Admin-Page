@@ -38,10 +38,10 @@ export default function Products(){
 
    
     useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("http://localhost:5000/products/adm")
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
+          //console.log(res,"prod");
           setProduct(res);
         });
     }, [del,updated]);
@@ -167,7 +167,7 @@ useEffect(() => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {product?.map((prod) => (
+          {product?.data?.map((prod) => (
             <TableRow key={prod.id} >
               <TableCell align="center">{prod.id}</TableCell>
               <TableCell align="center" value={name} >{prod?.name}</TableCell>

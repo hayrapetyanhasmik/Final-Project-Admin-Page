@@ -34,11 +34,8 @@ export default function Registration (){
     const classes = useStyles();
     const navigate = useNavigate()
     const [userName,setUserName] = useState("");
-    const [firstName,setFirstName] = useState("");
-    const [lastName,setLastName] = useState("");
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
-    const [confirmPass,setConfirmPass] = useState("");
     const [error,setError] = useState("");
     
 
@@ -48,8 +45,6 @@ export default function Registration (){
                 method: "POST",
                 body: JSON.stringify({
                   userName,
-                  firstName,
-                  lastName,
                   email,
                   password
                 }),
@@ -61,19 +56,17 @@ export default function Registration (){
                 if(data.message === "User created"){
                     navigate('/login')
                 }
-                if(data.error){
-                    setError(data.error);
-                }
                 if(response.status===400){
-                    setError(data.message)
+                    setError(data.err)
                 }
+                if(data.err){
+                    setError(data.err);
+                }
+                
    
         setUserName("");
-        setFirstName("");
-        setLastName("");
         setEmail("");
         setPassword("");
-        setConfirmPass("");
     }
 
     return(
@@ -83,19 +76,10 @@ export default function Registration (){
                 <TextField id="userName" label="Username" value={userName} variant="outlined" required size="small" onChange={(e)=>setUserName(e.target.value)}/>
             </FormControl>
             <FormControl className={classes.textField}>
-                <TextField id="firstName" label="Firstname" value={firstName} variant="outlined" required size="small" onChange={(e)=>setFirstName(e.target.value)}/>
-            </FormControl>
-            <FormControl className={classes.textField}>
-                <TextField id="lastName" label="Lastname" value={lastName} variant="outlined" required size="small" onChange={(e)=>setLastName(e.target.value)}/>
-            </FormControl>
-            <FormControl className={classes.textField}>
                 <TextField id="email" label="Email" value={email} variant="outlined" required size="small" onChange={(e)=>setEmail(e.target.value)}/>
             </FormControl>
             <FormControl className={classes.textField}>
                 <TextField id="password" label="Password" type="password" value={password} required variant="outlined" size="small" onChange={(e)=>setPassword(e.target.value)}/>
-            </FormControl>
-            <FormControl className={classes.textField}>
-                <TextField id="confirm_password" label="Confirm Password" type="password" value={confirmPass} required variant="outlined" size="small" onChange={(e)=>setConfirmPass(e.target.value)}/>
             </FormControl>
             <Button className={classes.button} variant="contained" type="submit">Sign Up</Button>
             {error && (

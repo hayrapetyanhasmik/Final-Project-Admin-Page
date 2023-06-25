@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button,TextField,FormControl,FormHelperText,makeStyles,Container,Paper } from "@material-ui/core";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme)=>({
     container: {
@@ -58,8 +58,8 @@ export default function Login (){
                 }else if(data.jwt && data.role===0){
                     navigate('/')
                 }
-                if(data.error){
-                setError(data.error);
+                if(data.err){
+                setError(data.err);
                 }
         setEmail("");
         setPassword("");
@@ -74,7 +74,8 @@ export default function Login (){
             <FormControl className={classes.textField}>
                 <TextField id="password" label="Password" type="password" value={password} required variant="outlined" size="small" onChange={(e)=>setPassword(e.target.value)}/>
             </FormControl>
-            <Button className={classes.button} variant="contained" type="submit">Log in</Button>
+            <Button className={classes.button} variant="contained" type="submit">Sign In</Button>
+            <p className="text">Don't have an account?</p> <Link to ="/register">Sign Up</Link> 
             {error && (
                 <FormHelperText className={classes.errorText}>{error}</FormHelperText>
             )}
